@@ -5,5 +5,5 @@ export const Message = (props) => {
         <>
             <p className={style.background}>{props.text}</p>
         </>
-    )
+    );
 }  
