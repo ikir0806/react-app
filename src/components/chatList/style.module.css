@@ -1,0 +1,12 @@
+.ul {
+    border: 1px solid black;
+    border-radius: 4px;
+}
+
+.list {
+    list-style-type: none;
+}
+
+.div {
+    flex: 1;
+}
