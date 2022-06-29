@@ -40,7 +40,7 @@ export const ChatList: FC<ChatListProps> = ({ chats, onAddChat, onDeleteChat }) 
                 ))}
             </ul>
             <form onSubmit={handleSubmit}>
-                <input type="text" value={value} onChange={handleChange} />
+                <input type='text' value={value} onChange={handleChange} />
                 <button>Create Chat</button>
             </form>
         </>
