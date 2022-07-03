@@ -1,4 +1,4 @@
-import { CHANGE_NAME, TOGGLE_PROFILE } from "./actions";
+import { CHANGE_NAME, TOGGLE_PROFILE } from './actions';
 
 export type ProfileActions = ToggleProfile | ChangeName;
 
@@ -7,6 +7,6 @@ export interface ToggleProfile {
 }
 
 export interface ChangeName {
-    type: typeof CHANGE_NAME,
+    type: typeof CHANGE_NAME;
     payload: string;
 }
