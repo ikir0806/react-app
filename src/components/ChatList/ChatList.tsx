@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addChat, deleteChat } from 'src/store/messages/actions';
 import { ListItem } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { selectChats } from './../../store/messages/selectors';
+import { selectChats } from '../../store/messages/selectors';
 
 export const ChatList: FC = () => {
     const [value, setValue] = useState('');

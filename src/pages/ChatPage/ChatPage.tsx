@@ -15,25 +15,6 @@ export const ChatPage: FC = () => {
 
     const messages = useSelector(selectMessages, shallowEqual);
 
-    // useEffect(() => {
-    //   if (
-    //     chatId &&
-    //     messages[chatId]?.length > 0 &&
-    //     messages[chatId][messages[chatId].length - 1].author === AUTHOR.user
-    //   ) {
-    //     const timeout = setTimeout(() => {
-    //       onAddMessage(chatId, {
-    //         author: AUTHOR.bot,
-    //         text: 'Im BOT',
-    //       });
-    //     }, 1000);
-
-    //     return () => {
-    //       clearTimeout(timeout);
-    //     };
-    //   }
-    // }, [chatId, messages]);
-
     if (chatId && !messages[chatId]) {
         return <Navigate to="/chats" replace />;
     }
