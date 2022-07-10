@@ -1,7 +1,10 @@
 import { FC } from 'react';
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectAuth } from 'src/store/profile/selectors';
+import { auth } from 'src/store/profile/slice';
 
-export const navigate = [
+export const nav = [
     {
         id: 1,
         name: 'Main',
@@ -22,9 +25,22 @@ export const navigate = [
         name: 'About',
         to: '/about',
     },
+    {
+        id: 5,
+        name: 'Articles',
+        to: '/articles',
+    },
 ];
 
 export const Header: FC = () => {
+    const isAuth = useSelector(selectAuth);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const handleLogin = () => {
+        navigate('/signin', { replace: true });
+    };
+
     return (
         <>
             <header
@@ -38,7 +54,7 @@ export const Header: FC = () => {
                         justifyContent: 'space-around',
                     }}
                 >
-                    {navigate.map((link) => (
+                    {nav.map((link) => (
                         <li key={link.id}>
                             <NavLink
                                 to={link.to}
@@ -51,6 +67,12 @@ export const Header: FC = () => {
                         </li>
                     ))}
                 </ul>
+                <div>
+                    {isAuth && (
+                        <button onClick={() => dispatch(auth(false))}>logout</button>
+                    )}
+                </div>
+                <div>{!isAuth && <button onClick={handleLogin}>login</button>}</div>
             </header>
             <main>
                 <Outlet />

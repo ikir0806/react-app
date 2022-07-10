@@ -4,10 +4,11 @@ import { Button } from './components/Button';
 import style from './Form.module.css';
 import { FC } from 'react';
 import { useDispatch } from 'react-redux';
-import { addMessageWithReply } from 'src/store/messages/actions';
+import { addMessage, addMessageWithReply } from 'src/store/messages/slice';
 import { useParams } from 'react-router-dom';
 import { Authors } from 'src/common-types';
 import { ThunkDispatch } from 'redux-thunk';
+import { AddMessage } from 'src/store/messages/types';
 
 export const Form: FC = memo(() => {
     const [text, setText] = useState('');
@@ -18,7 +19,12 @@ export const Form: FC = memo(() => {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (chatId) {
-            dispatch(addMessageWithReply(chatId, { author: Authors.USER, text }));
+            dispatch(
+                addMessageWithReply({
+                    chatName: chatId,
+                    message: { author: Authors.USER, text },
+                })
+            );
         }
 
         setText('');

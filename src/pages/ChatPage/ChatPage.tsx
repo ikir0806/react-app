@@ -16,7 +16,7 @@ export const ChatPage: FC = () => {
     const messages = useSelector(selectMessages, shallowEqual);
 
     if (chatId && !messages[chatId]) {
-        return <Navigate to="/chats" replace />;
+        return <Navigate to="/chats" />;
     }
 
     return (
