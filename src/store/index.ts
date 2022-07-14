@@ -13,19 +13,21 @@ import {
 import storage from 'redux-persist/lib/storage';
 
 import { profileReducer } from './profile/slice';
-import { messageReducer } from './messages/reducer';
+import { messagesReducer } from './messages/slice';
+import { articlesReducer } from './articles/slice';
 
 export type StoreState = ReturnType<typeof rootReducer>;
 
 const persistConfig = {
     key: 'root',
     storage,
-    blacklist: ['profile'],
+    blacklist: [],
 };
 
 export const rootReducer = combineReducers({
     profile: profileReducer,
-    messages: messageReducer,
+    messages: messagesReducer,
+    articles: articlesReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
