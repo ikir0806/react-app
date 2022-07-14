@@ -1,27 +1,43 @@
 import { FC, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { addChat, deleteChat } from 'src/store/messages/slice';
 import { ListItem } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { selectChats } from './../../store/messages/selectors';
+import { push, remove, set } from 'firebase/database';
+import {
+    getChatById,
+    getMessageListById,
+    messagesRef,
+} from 'src/services/firebase';
 
-export const ChatList: FC = () => {
+interface ChatListProps {
+    chats: any[];
+    messagesDB: any;
+}
+
+export const ChatList: FC<ChatListProps> = ({ chats, messagesDB }) => {
     const [value, setValue] = useState('');
-
-    const dispatch = useDispatch();
-
-    const chats = useSelector(
-        selectChats,
-        (prev, next) => prev.length === next.length
-    );
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         if (value) {
-            dispatch(addChat({ name: value }));
+            set(messagesRef, {
+                ...messagesDB,
+                [value]: {
+                    name: value,
+                },
+            });
+
+            push(getMessageListById(value), {
+                text: 'Chat has been created',
+                author: 'Admin',
+            });
+
             setValue('');
         }
+    };
+
+    const handleDeleteChat = (chatId: string) => {
+        remove(getChatById(chatId));
     };
 
     return (
@@ -30,9 +46,7 @@ export const ChatList: FC = () => {
                 {chats.map((chat) => (
                     <ListItem key={chat.id}>
                         <Link to={`/chats/${chat.name}`}>{chat.name}</Link>
-                        <button onClick={() => dispatch(deleteChat({ name: chat.name }))}>
-                            X
-                        </button>
+                        <button onClick={() => handleDeleteChat(chat.id)}>X</button>
                     </ListItem>
                 ))}
             </ul>
